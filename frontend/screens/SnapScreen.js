@@ -42,26 +42,38 @@ function SnapScreen(props) {
         }
     } 
 
-    let flashIcon = 'md-flash'
+    let flashIcon = 'md-flash-off'
     if (flash) {
-        flashIcon = 'md-flash-off'
-    } else {
         flashIcon = 'md-flash'
+    } else {
+        flashIcon = 'md-flash-off'
     }
     
-    // prendre une photo
+    // take picture 
     const takePic = async () => {
-        setVisible(true)
-        if (camera) {
-            console.log('je prends la photo')
-            var photo = await camera.takePictureAsync({
-              quality : 0.7,
-              base64: true,
-              exif: true
-            })
-            console.log(photo.width)
-            setVisible(false)
-          }
+      setVisible(true)
+      if (camera) {
+        console.log('je prends la photo')
+        var photo = await camera.takePictureAsync({
+          quality : 0.7,
+          base64: true,
+          exif: true
+        })
+        // envoyer vers le back
+        var data = new FormData();
+        data.append('picture', {
+          uri: photo.uri,
+          type: 'image/jpeg',
+          name: 'my_picture.jpg',
+        })
+        var rawResponse = await fetch("http://10.2.3.55:3000/upload", {
+          method: 'post',
+          body: data
+        })
+        var response = rawResponse.json()
+        console.log(response)
+        setVisible(false)
+      }
     }
     
 
