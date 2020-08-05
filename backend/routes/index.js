@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+// fs
+const fs = require('fs')
+
 // uniqid
 var uniqid = require('uniqid');
 
@@ -29,12 +32,16 @@ router.post('/upload', async function(req, res, next) {
   var resultCopy = await req.files.picture.mv(path)
   if(!resultCopy) {
     console.log('success')
+    // envoie sur cloudynary
     cloudinary.uploader.upload(path, function(error, result) 
     {
       console.log(result, error)
       if (result) {
+        // envoie l'url au front
         res.json({photoUrl: result.secure_url})
-        console.log('envoie de la photo')
+        // supprime la photo du temp
+        fs.unlinkSync(path);
+        console.log('envoie de la photo ok')
       } else {
         res.json({error: result.error})
         console.log('envoie dune erreur')
