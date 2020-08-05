@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, Text, KeyboardAvoidingView, SafeAreaView, Image } from 'react-native';
+import { StyleSheet, ScrollView, Text, SafeAreaView } from 'react-native';
 import Constants from 'expo-constants';
 import { Card, Badge } from 'react-native-elements'
+import {connect} from 'react-redux'
 
 
+function GalleryScreen(props) {
 
-function GalleryScreen() {
+  console.log(props.photos)
 
     const myGallery = [
         { picture: '../assets/picture-1.jpg',
@@ -84,7 +86,10 @@ const styles = StyleSheet.create({
     }
   })
 
+function mapStateToProps(state) {
+  return ({photos: state.photos})
+}
 
-
-
-export default GalleryScreen
+export default connect(
+  mapStateToProps,
+  null )(GalleryScreen) 

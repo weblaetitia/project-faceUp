@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { Camera } from 'expo-camera';
 import { Button, Overlay } from 'react-native-elements';
+import {connect} from 'react-redux'
+
 // icons
 import { FontAwesome } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 
@@ -14,6 +16,7 @@ function SnapScreen(props) {
     const [hasPermission, setHasPermission] = useState(null)
     const [type, setType] = useState(Camera.Constants.Type.back)
     const [flash, setFlash] = useState(Camera.Constants.FlashMode.on)
+    const [images, setImages] = useState([])
     
     // askPermission and store permission status
     useEffect(() => {
@@ -72,6 +75,7 @@ function SnapScreen(props) {
         })
         var response = await rawResponse.json()
         console.log('retour du back', response)
+        props.addPhotoUrl(response.photoUrl)
         setVisible(false)
       }
     }
@@ -151,4 +155,18 @@ function SnapScreen(props) {
   })
 
 
-export default SnapScreen
+/* REDUX  */
+
+// add photo url to store
+function mapDispatchToProps(dispatch) {
+  return {
+    addPhotoUrl: function(photoUrl) { 
+        dispatch( {type: 'addPhoto', photoUrl: photoUrl} ) 
+    }
+  }
+}
+
+export default connect(
+  null, 
+  mapDispatchToProps
+)(SnapScreen)

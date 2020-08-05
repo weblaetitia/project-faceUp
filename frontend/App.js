@@ -4,6 +4,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 
+// redux
+import { Provider } from "react-redux";
+import { createStore, combineReducers } from "redux";
+import photos from "./reducers/photos";
+const store = createStore(combineReducers({ photos }));
+
 console.disableYellowBox = true;
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -23,12 +29,14 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator headerMode='none'>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Gallery" component={BottomTabNav} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator headerMode='none'>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Gallery" component={BottomTabNav} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      </Provider>
   );
 }
 
