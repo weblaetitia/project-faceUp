@@ -70,8 +70,8 @@ function SnapScreen(props) {
           method: 'post',
           body: data
         })
-        var response = rawResponse.json()
-        console.log(response)
+        var response = await rawResponse.json()
+        console.log('retour du back', response)
         setVisible(false)
       }
     }

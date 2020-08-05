@@ -27,19 +27,23 @@ router.post('/upload', async function(req, res, next) {
   // créer une copie du fichier dans temp avec nom unique
   var path = './temp/'+uniqid()+'.jpg'
   var resultCopy = await req.files.picture.mv(path)
-  
   if(!resultCopy) {
-    res.json({result: true, message: 'File uploaded!'} )
-    console.log('success')     
+    console.log('success')
+    cloudinary.uploader.upload(path, function(error, result) 
+    {
+      console.log(result, error)
+      if (result) {
+        res.json({photoUrl: result.secure_url})
+        console.log('envoie de la photo')
+      } else {
+        res.json({error: result.error})
+        console.log('envoie dune erreur')
+      }
+    }) 
   } else {
-    res.json({result: false, message: resultCopy} );
-    console.log('fail')     
+    console.log('fail')
+    res.json({error: 'copy failed'}) 
   } 
-  cloudinary.uploader.upload(path, function(error, result) 
-  {
-    console.log(result, error)
-  })
-  
 })
 
 module.exports = router;
