@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "cloudinary": "^1.22.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -15,6 +16,7 @@
     "express-fileupload": "^1.1.9",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "sync-request": "^6.1.0",
     "uniqid": "^5.2.0"
   }
 }
