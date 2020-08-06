@@ -3,20 +3,22 @@ import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-nati
 import { Camera } from 'expo-camera';
 import { Button, Overlay } from 'react-native-elements';
 import {connect} from 'react-redux'
+import { useIsFocused } from '@react-navigation/native';
+
 
 // icons
 import { FontAwesome } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 
 
 function SnapScreen(props) {
+  // isFocused
 
-  const isFocused = props.navigation.isFocused();
-  console.log(isFocused)
+    const isFocused = useIsFocused()
+    console.log('focus? ', isFocused)
 
     const [hasPermission, setHasPermission] = useState(null)
     const [type, setType] = useState(Camera.Constants.Type.back)
     const [flash, setFlash] = useState(Camera.Constants.FlashMode.on)
-    const [images, setImages] = useState([])
     
     // askPermission and store permission status
     useEffect(() => {

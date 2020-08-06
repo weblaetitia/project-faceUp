@@ -8,7 +8,7 @@ export default function(photos = [], action) {
                 action.attributes.gender,
                 'age: ' + action.attributes.age,
                 action.attributes.glasses,
-            ]
+                ]
         }
         // traitement des infos
         if (action.attributes.facialHair.beard >= 0.2)  {
