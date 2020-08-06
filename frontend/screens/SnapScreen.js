@@ -74,8 +74,7 @@ function SnapScreen(props) {
           body: data
         })
         var response = await rawResponse.json()
-        console.log('retour du back', response)
-        props.addPhotoUrl(response.photoUrl)
+        props.addPhotoInfo(response.photoUrl, response.attributes)
         setVisible(false)
       }
     }
@@ -160,8 +159,8 @@ function SnapScreen(props) {
 // add photo url to store
 function mapDispatchToProps(dispatch) {
   return {
-    addPhotoUrl: function(photoUrl) { 
-        dispatch( {type: 'addPhoto', photoUrl: photoUrl} ) 
+    addPhotoInfo: function(photoUrl, attributes) { 
+        dispatch( {type: 'addPhoto', photoUrl: photoUrl, attributes: attributes} ) 
     }
   }
 }

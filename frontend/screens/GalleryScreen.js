@@ -9,10 +9,13 @@ function GalleryScreen(props) {
 
   // loop card on photos' array
   var photoCards = props.photos.map((element, i) => {
+    {var badges = element.attribs.map((e, i) => {
+      return (<Badge key={i} value={e} status="success" />)
+    })}
     return (
       <Card key={i} 
-            image={{uri: element}}>
-        <Badge value='photo' status="success" />
+            image={{uri: element.url}}>
+        {badges}
       </Card>
     )
   })
