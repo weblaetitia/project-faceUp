@@ -5,14 +5,12 @@ import { Button, Overlay } from 'react-native-elements';
 import {connect} from 'react-redux'
 import { useIsFocused } from '@react-navigation/native';
 
-
 // icons
 import { FontAwesome } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 
 
 function SnapScreen(props) {
   // isFocused
-
     const isFocused = useIsFocused()
     console.log('focus? ', isFocused)
 
